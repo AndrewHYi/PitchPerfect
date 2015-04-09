@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3eT-IS-ZVL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -102,25 +103,34 @@
                     <view key="view" contentMode="scaleToFill" id="TTL-qN-jfK">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1D3-bc-1Pp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1D3-bc-1Pp">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" image="playSlow">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="90" y="163" width="46" height="30"/>
-                                </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1D3-bc-1Pp" firstAttribute="leading" secondItem="TTL-qN-jfK" secondAttribute="leadingMargin" constant="30" id="FJA-jE-wig"/>
+                            <constraint firstItem="1D3-bc-1Pp" firstAttribute="top" secondItem="8zc-Ax-Ko7" secondAttribute="bottom" constant="50" id="x1D-89-W2c"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="1D3-bc-1Pp"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="FJA-jE-wig"/>
+                                <exclude reference="x1D-89-W2c"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="1D3-bc-1Pp"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="FJA-jE-wig"/>
+                                <include reference="x1D-89-W2c"/>
                             </mask>
                         </variation>
                     </view>
@@ -150,6 +160,7 @@
     </scenes>
     <resources>
         <image name="microphone" width="100" height="100"/>
+        <image name="playSlow" width="100" height="100"/>
         <image name="stop" width="50" height="50"/>
     </resources>
 </document>
