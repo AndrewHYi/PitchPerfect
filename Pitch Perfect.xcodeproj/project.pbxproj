@@ -14,6 +14,7 @@
 		40DE6BC91AD0A50C00A951B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40DE6BC81AD0A50C00A951B8 /* Images.xcassets */; };
 		40DE6BCC1AD0A50C00A951B8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DE6BCA1AD0A50C00A951B8 /* LaunchScreen.xib */; };
 		40DE6BD81AD0A50C00A951B8 /* Pitch_PerfectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DE6BD71AD0A50C00A951B8 /* Pitch_PerfectTests.swift */; };
+		40E2312F1AD76EE700B2B4AC /* movie_quote.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 40E2312E1AD76EE700B2B4AC /* movie_quote.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		40DE6BD11AD0A50C00A951B8 /* Pitch PerfectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pitch PerfectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DE6BD61AD0A50C00A951B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40DE6BD71AD0A50C00A951B8 /* Pitch_PerfectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch_PerfectTests.swift; sourceTree = "<group>"; };
+		40E2312E1AD76EE700B2B4AC /* movie_quote.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = movie_quote.mp3; path = ../../../../Desktop/movie_quote.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		40DE6BBF1AD0A50C00A951B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				40E2312E1AD76EE700B2B4AC /* movie_quote.mp3 */,
 				40DE6BC01AD0A50C00A951B8 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -197,6 +200,7 @@
 			files = (
 				40DE6BC71AD0A50C00A951B8 /* Main.storyboard in Resources */,
 				40DE6BCC1AD0A50C00A951B8 /* LaunchScreen.xib in Resources */,
+				40E2312F1AD76EE700B2B4AC /* movie_quote.mp3 in Resources */,
 				40DE6BC91AD0A50C00A951B8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
