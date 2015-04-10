@@ -26,6 +26,10 @@ class PlaySoundsViewController: UIViewController {
             println("filePath is empty!")
         }
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        stopButton.hidden = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -33,12 +37,14 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
+        stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 0.8
         audioPlayer.play()
     }
     @IBAction func playFastAudio(sender: UIButton) {
+        stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 1.4;
@@ -46,6 +52,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func stopAudio(sender: UIButton) {
+        stopButton.hidden = true
         audioPlayer.stop()
         audioPlayer.currentTime = 0
     }
