@@ -29,8 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B6496F81AD782C900B5874C /* ReocrdAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReocrdAudio.swift; sourceTree = "<group>"; };
-		0B6E6DDD1AD77B1C009EABC0 /* movie_quote.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = movie_quote.mp3; sourceTree = "<group>"; };
+		0B6496F81AD782C900B5874C /* ReocrdAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReocrdAudio.swift; path = ../ReocrdAudio.swift; sourceTree = "<group>"; };
+		0B6E6DDD1AD77B1C009EABC0 /* movie_quote.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = movie_quote.mp3; path = ../movie_quote.mp3; sourceTree = "<group>"; };
 		405728731AD73DEE00615691 /* PlaySoundsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySoundsViewController.swift; path = ../PlaySoundsViewController.swift; sourceTree = "<group>"; };
 		40DE6BBC1AD0A50C00A951B8 /* Pitch Perfect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pitch Perfect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DE6BC01AD0A50C00A951B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,8 +65,6 @@
 		40DE6BB31AD0A50C00A951B8 = {
 			isa = PBXGroup;
 			children = (
-				0B6496F81AD782C900B5874C /* ReocrdAudio.swift */,
-				0B6E6DDD1AD77B1C009EABC0 /* movie_quote.mp3 */,
 				40DE6BBE1AD0A50C00A951B8 /* Pitch Perfect */,
 				40DE6BD41AD0A50C00A951B8 /* Pitch PerfectTests */,
 				40DE6BBD1AD0A50C00A951B8 /* Products */,
@@ -85,6 +83,7 @@
 		40DE6BBE1AD0A50C00A951B8 /* Pitch Perfect */ = {
 			isa = PBXGroup;
 			children = (
+				0B6496F81AD782C900B5874C /* ReocrdAudio.swift */,
 				40DE6BC11AD0A50C00A951B8 /* AppDelegate.swift */,
 				40DE6BC31AD0A50C00A951B8 /* RecordSoundsViewController.swift */,
 				405728731AD73DEE00615691 /* PlaySoundsViewController.swift */,
@@ -99,6 +98,7 @@
 		40DE6BBF1AD0A50C00A951B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0B6E6DDD1AD77B1C009EABC0 /* movie_quote.mp3 */,
 				40DE6BC01AD0A50C00A951B8 /* Info.plist */,
 			);
 			name = "Supporting Files";
