@@ -11,6 +11,7 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
 
+    @IBOutlet weak var stopButton: UIButton!
     var audioPlayer:AVAudioPlayer!
     
     override func viewDidLoad() {
@@ -33,9 +34,20 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func playSlowAudio(sender: UIButton) {
         audioPlayer.stop()
+        audioPlayer.currentTime = 0
         audioPlayer.rate = 0.8
         audioPlayer.play()
     }
+    @IBAction func playFastAudio(sender: UIButton) {
+        audioPlayer.stop()
+        audioPlayer.currentTime = 0
+        audioPlayer.rate = 1.4;
+        audioPlayer.play()
+    }
     
+    @IBAction func stopAudio(sender: UIButton) {
+        audioPlayer.stop()
+        audioPlayer.currentTime = 0
+    }
 
 }
