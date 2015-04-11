@@ -32,6 +32,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
+        setAudioSession()
         stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
@@ -39,6 +40,7 @@ class PlaySoundsViewController: UIViewController {
         audioPlayer.play()
     }
     @IBAction func playFastAudio(sender: UIButton) {
+        setAudioSession()
         stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
@@ -50,6 +52,11 @@ class PlaySoundsViewController: UIViewController {
         stopButton.hidden = true
         audioPlayer.stop()
         audioPlayer.currentTime = 0
+    }
+    
+    func setAudioSession() {
+        var session = AVAudioSession.sharedInstance()
+        session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
     }
 
 }
