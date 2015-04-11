@@ -76,29 +76,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         var reverbEffect = AVAudioUnitReverb()
         reverbEffect.wetDryMix = 50.0
         reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
-        
-        audioEngine.attachNode(audioPlayerNode)
-        audioEngine.attachNode(reverbEffect)
-        
-        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
-        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
-            let playerTime = self.audioPlayerNode.playerTimeForNodeTime(self.audioPlayerNode.lastRenderTime)
-            let delayInSeconds: Double = {
-                if playerTime != nil {
-                    // This is a hack...This is 'Good enough'™ to hide the stopButton for the reverb effect, but ideally
-                    // I would get get the correct length of the audio (with reverb effect added)
-                    return Double(self.audioFile.length - playerTime.sampleTime) / self.audioFile.processingFormat.sampleRate / Double(self.audioPlayer.rate) + Double(0.45)
-                } else {
-                    return 0
-                }
-                }()
-            self.timer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
-            NSRunLoop.mainRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
-        }
-        audioEngine.startAndReturnError(nil)
-        audioPlayerNode.play()
+        startAudioEngineWithEffect(reverbEffect)
     }
     
     @IBAction func stopButtonPressed(sender: UIButton) {
@@ -116,27 +94,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayerNode = AVAudioPlayerNode()
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
-        
-        audioEngine.attachNode(audioPlayerNode)
-        audioEngine.attachNode(changePitchEffect)
-        
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
-       
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
-            let playerTime = self.audioPlayerNode.playerTimeForNodeTime(self.audioPlayerNode.lastRenderTime)
-            let delayInSeconds: Double = {
-                if playerTime != nil {
-                    return Double(self.audioFile.length - playerTime.sampleTime) / self.audioFile.processingFormat.sampleRate / Double(self.audioPlayer.rate)
-                } else {
-                    return 0
-                }
-            }()
-            self.timer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
-            NSRunLoop.mainRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
-        }
-        audioEngine.startAndReturnError(nil)
-        audioPlayerNode.play()
+        startAudioEngineWithEffect(changePitchEffect, additionalDelay: 0.45)
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
@@ -162,6 +120,29 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         }
         audioPlayer.currentTime = 0
         session.setActive(false, error: nil)
+    }
+    
+    func startAudioEngineWithEffect(audioEffect: AVAudioUnit, additionalDelay: Float = 0.0) {
+        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attachNode(audioEffect)
+
+        audioEngine.connect(audioPlayerNode, to: audioEffect, format: nil)
+        audioEngine.connect(audioEffect, to: audioEngine.outputNode, format: nil)
+
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
+            let playerTime = self.audioPlayerNode.playerTimeForNodeTime(self.audioPlayerNode.lastRenderTime)
+            let delayInSeconds: Double = {
+                if playerTime != nil {
+                    return Double(self.audioFile.length - playerTime.sampleTime) / self.audioFile.processingFormat.sampleRate / Double(self.audioPlayer.rate) + Double(additionalDelay)
+                } else {
+                    return 0
+                }
+            }()
+            self.timer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
+            NSRunLoop.mainRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
+        }
+        audioEngine.startAndReturnError(nil)
+        audioPlayerNode.play()
     }
 
 }
