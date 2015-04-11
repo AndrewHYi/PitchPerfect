@@ -62,46 +62,44 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         playAudioWithVariablePitch(-1000)
     }
     
-    @IBAction func stopAudio(sender: UIButton) {
-        stopButton.hidden = true
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioPlayer.currentTime = 0
+    @IBAction func stopButtonPressed(sender: UIButton) {
+        stopAudio()
     }
     
     func playAudioWithVariablePitch(pitch: Float) {
-        audioEngine.stop()
-        audioEngine.reset()
-        
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
-        audioEngine.attachNode(changePitchEffect)
         
+        audioEngine.attachNode(changePitchEffect)
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-
         audioEngine.startAndReturnError(nil)
-        
         audioPlayerNode.play()
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        stopAudioSession()
+        stopAudio()
     }
     
     func setAudioPlayerAndSession() {
         audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
         stopButton.hidden = false
         session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
     }
     
-    func stopAudioSession() {
+    func stopAudio() {
         stopButton.hidden = true
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        audioPlayer.currentTime = 0
         session.setActive(false, error: nil)
     }
 
