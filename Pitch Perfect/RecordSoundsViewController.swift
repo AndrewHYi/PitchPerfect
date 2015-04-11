@@ -11,21 +11,25 @@ import AVFoundation
 
 class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
-    @IBOutlet weak var recordingInProgress: UILabel!
+    @IBOutlet weak var recordingStatusText: UILabel!
+    @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
+    var paused:Bool?
     
     var audioRecorder:AVAudioRecorder!
     var recordedAudio:RecordedAudio!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(animated: Bool) {
+        recordingStatusText.text = "Tap to Record"
         recordButton.enabled = true
         stopButton.hidden = true;
+        pauseButton.hidden = true;
+        paused = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,34 +39,47 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func recordAudio(sender: UIButton) {
         recordButton.enabled = false;
-        recordingInProgress.hidden = false;
+        recordingStatusText.text = "Recording..."
+        recordingStatusText.hidden = false;
         stopButton.hidden = false;
+        pauseButton.enabled = true;
+        pauseButton.hidden = false;
         
-        let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        
-        let currentDateTime = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "ddMMyyyy-HHmmss"
-        let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
-        let pathArray = [dirPath, recordingName]
-        let filePath = NSURL.fileURLWithPathComponents(pathArray)
-        println(filePath)
-        
-        var session = AVAudioSession.sharedInstance()
-        session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
-        
-        audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
-        audioRecorder.delegate = self
-        audioRecorder.meteringEnabled = true
+        if(paused == false) {
+            let dirPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+            let currentDateTime = NSDate()
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "ddMMyyyy-HHmmss"
+            let recordingName = formatter.stringFromDate(currentDateTime)+".wav"
+            let pathArray = [dirPath, recordingName]
+            let filePath = NSURL.fileURLWithPathComponents(pathArray)
+            println(filePath)
+            
+            var session = AVAudioSession.sharedInstance()
+            session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
+            
+            audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
+            audioRecorder.delegate = self
+            audioRecorder.meteringEnabled = true
+        }
         audioRecorder.record()
+        paused = false
     }
 
     @IBAction func stopRecording(sender: UIButton) {
-        recordingInProgress.hidden = true;
         stopButton.hidden = true;
+        pauseButton.hidden = true;
         audioRecorder.stop()
         var audioSession = AVAudioSession.sharedInstance()
         audioSession.setActive(false, error: nil)
+    }
+    
+    @IBAction func pauseRecording(sender: UIButton) {
+        paused = true
+        recordButton.enabled = true
+        recordingStatusText.text = "Paused\n(Press Mic to Resume)"
+        pauseButton.enabled = false
+        audioRecorder.pause()
     }
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {

@@ -27,7 +27,7 @@
                                     <action selector="recordAudio:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JeO-7B-Phq"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGj-Bg-87o">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Record" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGj-Bg-87o">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -42,49 +42,83 @@
                                     <action selector="stopRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1pt-AP-Gdz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKN-g8-OA8">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="0Pa-yM-SrN"/>
+                                </constraints>
+                                <state key="normal" image="pauseButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0Pa-yM-SrN"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="0Pa-yM-SrN"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="pauseRecording:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="cU8-DZ-Oa0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="uKN-g8-OA8" secondAttribute="centerX" constant="47.5" id="1Cu-kk-BC1"/>
                             <constraint firstAttribute="centerX" secondItem="NGj-Bg-87o" secondAttribute="centerX" constant="-0.5" id="8lE-Sg-E4H"/>
                             <constraint firstItem="NGj-Bg-87o" firstAttribute="top" secondItem="INX-w9-UjB" secondAttribute="bottom" constant="20" id="EJv-0h-Ofw"/>
+                            <constraint firstItem="250-Hu-MGN" firstAttribute="leading" secondItem="uKN-g8-OA8" secondAttribute="trailing" constant="45" id="NCT-3t-gJN"/>
                             <constraint firstAttribute="centerY" secondItem="INX-w9-UjB" secondAttribute="centerY" id="R6u-Ji-Isv"/>
+                            <constraint firstItem="250-Hu-MGN" firstAttribute="top" secondItem="uKN-g8-OA8" secondAttribute="top" id="WPt-Uo-D8S"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="250-Hu-MGN" secondAttribute="bottom" constant="58" id="bQV-wV-Njz"/>
                             <constraint firstAttribute="centerX" secondItem="INX-w9-UjB" secondAttribute="centerX" id="j5z-Ol-OdA"/>
-                            <constraint firstAttribute="centerX" secondItem="250-Hu-MGN" secondAttribute="centerX" id="kbp-lz-Xdj"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="250-Hu-MGN" secondAttribute="bottom" constant="60" id="zgv-D2-0lJ"/>
+                            <constraint firstAttribute="centerX" secondItem="250-Hu-MGN" secondAttribute="centerX" constant="-48" id="spO-cj-El7"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="NGj-Bg-87o"/>
                                 <exclude reference="250-Hu-MGN"/>
+                                <exclude reference="uKN-g8-OA8"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="8lE-Sg-E4H"/>
                                 <exclude reference="EJv-0h-Ofw"/>
-                                <exclude reference="kbp-lz-Xdj"/>
+                                <exclude reference="NCT-3t-gJN"/>
+                                <exclude reference="WPt-Uo-D8S"/>
+                                <exclude reference="spO-cj-El7"/>
+                                <exclude reference="1Cu-kk-BC1"/>
                                 <exclude reference="R6u-Ji-Isv"/>
                                 <exclude reference="j5z-Ol-OdA"/>
-                                <exclude reference="zgv-D2-0lJ"/>
+                                <exclude reference="bQV-wV-Njz"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="NGj-Bg-87o"/>
                                 <include reference="250-Hu-MGN"/>
+                                <include reference="uKN-g8-OA8"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="8lE-Sg-E4H"/>
                                 <include reference="EJv-0h-Ofw"/>
-                                <include reference="kbp-lz-Xdj"/>
+                                <include reference="NCT-3t-gJN"/>
+                                <include reference="WPt-Uo-D8S"/>
+                                <include reference="spO-cj-El7"/>
+                                <include reference="1Cu-kk-BC1"/>
                                 <include reference="R6u-Ji-Isv"/>
                                 <include reference="j5z-Ol-OdA"/>
-                                <include reference="zgv-D2-0lJ"/>
+                                <include reference="bQV-wV-Njz"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="HNR-8J-2t8"/>
                     <connections>
+                        <outlet property="pauseButton" destination="uKN-g8-OA8" id="M3y-4J-wTI"/>
                         <outlet property="recordButton" destination="INX-w9-UjB" id="MdZ-kc-4Cv"/>
-                        <outlet property="recordingInProgress" destination="NGj-Bg-87o" id="ZgR-ZU-yMr"/>
+                        <outlet property="recordingStatusText" destination="NGj-Bg-87o" id="7jd-da-QGO"/>
                         <outlet property="stopButton" destination="250-Hu-MGN" id="GpW-pG-7iY"/>
                         <segue destination="6uI-I8-UFz" kind="show" identifier="stopRecording" id="5iE-sH-i4n"/>
                     </connections>
@@ -236,6 +270,7 @@
     </scenes>
     <resources>
         <image name="microphone" width="100" height="100"/>
+        <image name="pauseButton" width="49" height="49"/>
         <image name="playFast" width="100" height="100"/>
         <image name="playHighPitch" width="100" height="100"/>
         <image name="playLowPitch" width="100" height="100"/>
