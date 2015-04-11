@@ -132,12 +132,20 @@
                                     <action selector="playFastAudio:" destination="6uI-I8-UFz" eventType="touchUpInside" id="Gad-5F-kWG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2m-r9-xsl">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" image="playHighPitch">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="F2m-r9-xsl" firstAttribute="leading" secondItem="1D3-bc-1Pp" secondAttribute="leading" id="J2P-h7-OBh"/>
                             <constraint firstItem="ai8-T4-DV9" firstAttribute="top" secondItem="bPS-w2-CNq" secondAttribute="bottom" constant="100" id="PrN-zJ-2pN"/>
                             <constraint firstItem="adZ-cp-bPr" firstAttribute="top" secondItem="1D3-bc-1Pp" secondAttribute="top" id="XXd-L5-c3Z"/>
                             <constraint firstAttribute="centerX" secondItem="bPS-w2-CNq" secondAttribute="centerX" id="kY4-MP-qtH"/>
+                            <constraint firstItem="F2m-r9-xsl" firstAttribute="top" secondItem="1D3-bc-1Pp" secondAttribute="bottom" constant="49" id="qH9-ce-4fs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="adZ-cp-bPr" secondAttribute="trailing" constant="30" id="qTn-jG-bZk"/>
                             <constraint firstItem="1D3-bc-1Pp" firstAttribute="leading" secondItem="TTL-qN-jfK" secondAttribute="leadingMargin" constant="30" id="toN-Kb-5Kk"/>
                             <constraint firstItem="1D3-bc-1Pp" firstAttribute="top" secondItem="8zc-Ax-Ko7" secondAttribute="bottom" constant="50" id="ySX-nG-M25"/>
@@ -147,14 +155,17 @@
                                 <exclude reference="1D3-bc-1Pp"/>
                                 <exclude reference="bPS-w2-CNq"/>
                                 <exclude reference="adZ-cp-bPr"/>
+                                <exclude reference="F2m-r9-xsl"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="PrN-zJ-2pN"/>
                                 <exclude reference="toN-Kb-5Kk"/>
                                 <exclude reference="ySX-nG-M25"/>
+                                <exclude reference="J2P-h7-OBh"/>
+                                <exclude reference="qH9-ce-4fs"/>
                                 <exclude reference="XXd-L5-c3Z"/>
                                 <exclude reference="qTn-jG-bZk"/>
                                 <exclude reference="kY4-MP-qtH"/>
+                                <exclude reference="PrN-zJ-2pN"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -162,14 +173,17 @@
                                 <include reference="1D3-bc-1Pp"/>
                                 <include reference="bPS-w2-CNq"/>
                                 <include reference="adZ-cp-bPr"/>
+                                <include reference="F2m-r9-xsl"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="PrN-zJ-2pN"/>
                                 <include reference="toN-Kb-5Kk"/>
                                 <include reference="ySX-nG-M25"/>
+                                <include reference="J2P-h7-OBh"/>
+                                <include reference="qH9-ce-4fs"/>
                                 <include reference="XXd-L5-c3Z"/>
                                 <include reference="qTn-jG-bZk"/>
                                 <include reference="kY4-MP-qtH"/>
+                                <include reference="PrN-zJ-2pN"/>
                             </mask>
                         </variation>
                     </view>
@@ -203,6 +217,7 @@
     <resources>
         <image name="microphone" width="100" height="100"/>
         <image name="playFast" width="100" height="100"/>
+        <image name="playHighPitch" width="100" height="100"/>
         <image name="playSlow" width="100" height="100"/>
         <image name="stop" width="50" height="50"/>
     </resources>
