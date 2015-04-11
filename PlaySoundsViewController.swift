@@ -75,13 +75,14 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         
         var audioPlayerNode = AVAudioPlayerNode()
         var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.wetDryMix = 50.0
         reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
         
         audioEngine.attachNode(audioPlayerNode)
         audioEngine.attachNode(reverbEffect)
         
-        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: audioFile.processingFormat)
-        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: audioFile.processingFormat)
+        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
+        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
