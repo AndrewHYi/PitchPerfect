@@ -70,6 +70,24 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayer.playAtTime(echoAudioPlayer.deviceCurrentTime + 0.45)
     }
     
+    @IBAction func playReverb(sender: AnyObject) {
+        setAudioPlayerAndSession()
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+        
+        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attachNode(reverbEffect)
+        
+        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: audioFile.processingFormat)
+        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: audioFile.processingFormat)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        audioPlayerNode.play()
+    }
+    
     @IBAction func playLowPitch(sender: UIButton) {
         setAudioPlayerAndSession()
         playAudioWithVariablePitch(-1000)
@@ -96,7 +114,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        stopAudio()
+        if(flag) { stopAudio() }
     }
     
     func setAudioPlayerAndSession() {
