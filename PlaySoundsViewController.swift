@@ -57,9 +57,15 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         playAudioWithVariablePitch(1000)
     }
     
+    @IBAction func playLowPitch(sender: UIButton) {
+        setAudioPlayerAndSession()
+        playAudioWithVariablePitch(-1000)
+    }
+    
     @IBAction func stopAudio(sender: UIButton) {
         stopButton.hidden = true
         audioPlayer.stop()
+        audioEngine.stop()
         audioPlayer.currentTime = 0
     }
     
@@ -95,8 +101,6 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func stopAudioSession() {
-        audioEngine.stop()
-        audioEngine.reset()
         stopButton.hidden = true
         session.setActive(false, error: nil)
     }
