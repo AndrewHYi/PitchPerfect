@@ -1,5 +1,5 @@
 //
-//  ReocrdAudio.swift
+//  RecordAudio.swift
 //  Pitch Perfect
 //
 //  Created by Andrew Yi on 4/10/15.
