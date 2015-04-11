@@ -103,6 +103,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func setAudioPlayerAndSession() {
         self.timer?.invalidate()
+        if(echoAudioPlayer != nil && echoAudioPlayer.playing) { echoAudioPlayer.stop() }
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioEngine.stop()
@@ -113,7 +114,6 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func stopAudio() {
         stopButton.hidden = true
-        if(echoAudioPlayer != nil && echoAudioPlayer.playing) { echoAudioPlayer.stop() }
         if(audioPlayer.playing) { audioPlayer.stop() }
         if(audioEngine.running) {
             audioEngine.stop()
