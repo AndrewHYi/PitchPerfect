@@ -14,10 +14,12 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var stopButton: UIButton!
     
     var audioPlayer:AVAudioPlayer!
+    var session:AVAudioSession!
     var receivedAudio:RecordedAudio!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        session = AVAudioSession.sharedInstance()
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
         audioPlayer.enableRate = true
         audioPlayer.delegate = self
@@ -34,7 +36,6 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     @IBAction func playSlowAudio(sender: UIButton) {
         setAudioSession()
-        stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 0.8
@@ -42,7 +43,6 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     @IBAction func playFastAudio(sender: UIButton) {
         setAudioSession()
-        stopButton.hidden = false
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 1.4;
@@ -56,12 +56,17 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        stopButton.hidden = true;
+        stopAudioSession()
     }
     
     func setAudioSession() {
-        var session = AVAudioSession.sharedInstance()
+        stopButton.hidden = false
         session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+    }
+    
+    func stopAudioSession() {
+        stopButton.hidden = true
+        session.setActive(false, error: nil)
     }
 
 }
