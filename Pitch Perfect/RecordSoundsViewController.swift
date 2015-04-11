@@ -15,7 +15,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
-    var paused:Bool?
+    var paused = false
     
     var audioRecorder:AVAudioRecorder!
     var recordedAudio:RecordedAudio!
