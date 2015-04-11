@@ -14,11 +14,13 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var stopButton: UIButton!
     
     var audioPlayer:AVAudioPlayer!
+    var audioPlayerNode:AVAudioPlayerNode!
     var echoAudioPlayer:AVAudioPlayer!
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
     var session:AVAudioSession!
     var receivedAudio:RecordedAudio!
+    var timer:NSTimer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +72,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBAction func playReverb(sender: AnyObject) {
         setAudioPlayerAndSession()
         
-        var audioPlayerNode = AVAudioPlayerNode()
+        audioPlayerNode = AVAudioPlayerNode()
         var reverbEffect = AVAudioUnitReverb()
         reverbEffect.wetDryMix = 50.0
         reverbEffect.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
@@ -98,7 +100,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func playAudioWithVariablePitch(pitch: Float) {
         setAudioPlayerAndSession()
-        var audioPlayerNode = AVAudioPlayerNode()
+        audioPlayerNode = AVAudioPlayerNode()
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
         
@@ -107,8 +109,19 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+       
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
+            let playerTime = self.audioPlayerNode.playerTimeForNodeTime(self.audioPlayerNode.lastRenderTime)
+            let delayInSeconds: Double = {
+                if playerTime != nil {
+                    return Double(self.audioFile.length - playerTime.sampleTime) / self.audioFile.processingFormat.sampleRate / Double(self.audioPlayer.rate)
+                } else {
+                    return 0
+                }
+            }()
+            self.timer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
+            NSRunLoop.mainRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
+        }
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
     }
