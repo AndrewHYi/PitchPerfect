@@ -14,6 +14,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var stopButton: UIButton!
     
     var audioPlayer:AVAudioPlayer!
+    var echoAudioPlayer:AVAudioPlayer!
     var audioEngine:AVAudioEngine!
     var audioFile:AVAudioFile!
     var session:AVAudioSession!
@@ -57,6 +58,18 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         playAudioWithVariablePitch(1000)
     }
     
+    @IBAction func playEcho(sender: UIButton) {
+        setAudioPlayerAndSession()
+        
+        // play audioPlayer with delay instead of echoAudioPlayer so that audioPlayerDidFinishPlaying is still correct
+        // (Otherwise the audio will stop too early)
+        echoAudioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        audioPlayer.volume = 0.6;
+        
+        echoAudioPlayer.play()
+        audioPlayer.playAtTime(echoAudioPlayer.deviceCurrentTime + 0.45)
+    }
+    
     @IBAction func playLowPitch(sender: UIButton) {
         setAudioPlayerAndSession()
         playAudioWithVariablePitch(-1000)
@@ -96,9 +109,12 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func stopAudio() {
         stopButton.hidden = true
-        audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
+        if(echoAudioPlayer.playing) { echoAudioPlayer.stop() }
+        if(audioPlayer.playing) { audioPlayer.stop() }
+        if(audioEngine.running) {
+            audioEngine.stop()
+            audioEngine.reset()
+        }
         audioPlayer.currentTime = 0
         session.setActive(false, error: nil)
     }
