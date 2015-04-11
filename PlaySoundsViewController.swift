@@ -14,6 +14,8 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var stopButton: UIButton!
     
     var audioPlayer:AVAudioPlayer!
+    var audioEngine:AVAudioEngine!
+    var audioFile:AVAudioFile!
     var session:AVAudioSession!
     var receivedAudio:RecordedAudio!
     
@@ -23,6 +25,9 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
         audioPlayer.enableRate = true
         audioPlayer.delegate = self
+        
+        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        audioEngine = AVAudioEngine()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -35,18 +40,21 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
-        setAudioSession()
-        audioPlayer.stop()
+        setAudioPlayerAndSession()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 0.8
         audioPlayer.play()
     }
     @IBAction func playFastAudio(sender: UIButton) {
-        setAudioSession()
-        audioPlayer.stop()
+        setAudioPlayerAndSession()
         audioPlayer.currentTime = 0
         audioPlayer.rate = 1.4;
         audioPlayer.play()
+    }
+    
+    @IBAction func playHighPitch(sender: UIButton) {
+        setAudioPlayerAndSession()
+        playAudioWithVariablePitch(1000)
     }
     
     @IBAction func stopAudio(sender: UIButton) {
@@ -55,16 +63,40 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayer.currentTime = 0
     }
     
+    func playAudioWithVariablePitch(pitch: Float) {
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var changePitchEffect = AVAudioUnitTimePitch()
+        changePitchEffect.pitch = pitch
+        audioEngine.attachNode(changePitchEffect)
+        
+        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
+        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+
+        audioEngine.startAndReturnError(nil)
+        
+        audioPlayerNode.play()
+    }
+    
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
         stopAudioSession()
     }
     
-    func setAudioSession() {
+    func setAudioPlayerAndSession() {
+        audioPlayer.stop()
         stopButton.hidden = false
         session.setCategory(AVAudioSessionCategoryPlayback, error: nil)
     }
     
     func stopAudioSession() {
+        audioEngine.stop()
+        audioEngine.reset()
         stopButton.hidden = true
         session.setActive(false, error: nil)
     }
