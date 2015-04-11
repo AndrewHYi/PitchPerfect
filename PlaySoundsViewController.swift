@@ -128,7 +128,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func stopAudio() {
         stopButton.hidden = true
-        if(echoAudioPlayer.playing) { echoAudioPlayer.stop() }
+        if(echoAudioPlayer != nil && echoAudioPlayer.playing) { echoAudioPlayer.stop() }
         if(audioPlayer.playing) { audioPlayer.stop() }
         if(audioEngine.running) {
             audioEngine.stop()
