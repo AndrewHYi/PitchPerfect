@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class PlaySoundsViewController: UIViewController {
+class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
 
     @IBOutlet weak var stopButton: UIButton!
     
@@ -20,6 +20,7 @@ class PlaySoundsViewController: UIViewController {
         super.viewDidLoad()
         audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
         audioPlayer.enableRate = true
+        audioPlayer.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -52,6 +53,10 @@ class PlaySoundsViewController: UIViewController {
         stopButton.hidden = true
         audioPlayer.stop()
         audioPlayer.currentTime = 0
+    }
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        stopButton.hidden = true;
     }
     
     func setAudioSession() {
