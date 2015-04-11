@@ -83,7 +83,20 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
         audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
         
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
+            let playerTime = self.audioPlayerNode.playerTimeForNodeTime(self.audioPlayerNode.lastRenderTime)
+            let delayInSeconds: Double = {
+                if playerTime != nil {
+                    // This is a hack...This is 'Good enough'™ to hide the stopButton for the reverb effect, but ideally
+                    // I would get get the correct length of the audio (with reverb effect added)
+                    return Double(self.audioFile.length - playerTime.sampleTime) / self.audioFile.processingFormat.sampleRate / Double(self.audioPlayer.rate) + Double(0.45)
+                } else {
+                    return 0
+                }
+                }()
+            self.timer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
+            NSRunLoop.mainRunLoop().addTimer(self.timer!, forMode: NSDefaultRunLoopMode)
+        }
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
     }
