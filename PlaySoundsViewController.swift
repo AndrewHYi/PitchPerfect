@@ -41,21 +41,18 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
-        setAudioPlayerAndSession()
-        audioPlayer.currentTime = 0
-        audioPlayer.rate = 0.8
-        audioPlayer.play()
+        playAudioWithVariableRate(0.8)
     }
     @IBAction func playFastAudio(sender: UIButton) {
-        setAudioPlayerAndSession()
-        audioPlayer.currentTime = 0
-        audioPlayer.rate = 1.4;
-        audioPlayer.play()
+        playAudioWithVariableRate(1.4)
     }
     
     @IBAction func playHighPitch(sender: UIButton) {
-        setAudioPlayerAndSession()
         playAudioWithVariablePitch(1000)
+    }
+    
+    @IBAction func playLowPitch(sender: UIButton) {
+        playAudioWithVariablePitch(-1000)
     }
     
     @IBAction func playEcho(sender: UIButton) {
@@ -89,16 +86,18 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayerNode.play()
     }
     
-    @IBAction func playLowPitch(sender: UIButton) {
-        setAudioPlayerAndSession()
-        playAudioWithVariablePitch(-1000)
-    }
-    
     @IBAction func stopButtonPressed(sender: UIButton) {
         stopAudio()
     }
     
+    func playAudioWithVariableRate(rate: Float) {
+        setAudioPlayerAndSession()
+        audioPlayer.rate = rate
+        audioPlayer.play()
+    }
+    
     func playAudioWithVariablePitch(pitch: Float) {
+        setAudioPlayerAndSession()
         var audioPlayerNode = AVAudioPlayerNode()
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
@@ -120,6 +119,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func setAudioPlayerAndSession() {
         audioPlayer.stop()
+        audioPlayer.currentTime = 0
         audioEngine.stop()
         audioEngine.reset()
         stopButton.hidden = false
