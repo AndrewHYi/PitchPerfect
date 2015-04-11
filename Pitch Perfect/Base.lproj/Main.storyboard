@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3eT-IS-ZVL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -34,7 +35,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="250-Hu-MGN">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" image="stop">
+                                <state key="normal" image="stopButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -115,7 +116,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPS-w2-CNq">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" image="stop">
+                                <state key="normal" image="stopButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -154,7 +155,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="adZ-cp-bPr" secondAttribute="trailing" constant="30" id="0N5-p5-iNe"/>
                             <constraint firstItem="bPS-w2-CNq" firstAttribute="centerX" secondItem="TTL-qN-jfK" secondAttribute="centerX" id="DPC-GK-ctr"/>
-                            <constraint firstItem="ai8-T4-DV9" firstAttribute="top" secondItem="bPS-w2-CNq" secondAttribute="bottom" constant="100" id="Gae-S1-4k8"/>
+                            <constraint firstItem="ai8-T4-DV9" firstAttribute="top" secondItem="bPS-w2-CNq" secondAttribute="bottom" constant="60" id="Gae-S1-4k8"/>
                             <constraint firstItem="1D3-bc-1Pp" firstAttribute="top" secondItem="adZ-cp-bPr" secondAttribute="top" id="IgD-E1-KjK"/>
                             <constraint firstItem="F2m-r9-xsl" firstAttribute="top" secondItem="1D3-bc-1Pp" secondAttribute="bottom" constant="49" id="Llr-Ah-5ga"/>
                             <constraint firstItem="F2m-r9-xsl" firstAttribute="leading" secondItem="1D3-bc-1Pp" secondAttribute="leading" id="oPU-mP-ouo"/>
@@ -172,16 +173,16 @@
                                 <exclude reference="5sv-tF-gns"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Gae-S1-4k8"/>
+                                <exclude reference="yHV-Jx-HAX"/>
                                 <exclude reference="IgD-E1-KjK"/>
                                 <exclude reference="uOU-jl-gGz"/>
+                                <exclude reference="pN3-gt-0y2"/>
+                                <exclude reference="sZz-xE-UW1"/>
                                 <exclude reference="Llr-Ah-5ga"/>
                                 <exclude reference="oPU-mP-ouo"/>
                                 <exclude reference="0N5-p5-iNe"/>
-                                <exclude reference="pN3-gt-0y2"/>
-                                <exclude reference="sZz-xE-UW1"/>
                                 <exclude reference="DPC-GK-ctr"/>
-                                <exclude reference="Gae-S1-4k8"/>
-                                <exclude reference="yHV-Jx-HAX"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -193,16 +194,16 @@
                                 <include reference="5sv-tF-gns"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Gae-S1-4k8"/>
+                                <include reference="yHV-Jx-HAX"/>
                                 <include reference="IgD-E1-KjK"/>
                                 <include reference="uOU-jl-gGz"/>
+                                <include reference="pN3-gt-0y2"/>
+                                <include reference="sZz-xE-UW1"/>
                                 <include reference="Llr-Ah-5ga"/>
                                 <include reference="oPU-mP-ouo"/>
                                 <include reference="0N5-p5-iNe"/>
-                                <include reference="pN3-gt-0y2"/>
-                                <include reference="sZz-xE-UW1"/>
                                 <include reference="DPC-GK-ctr"/>
-                                <include reference="Gae-S1-4k8"/>
-                                <include reference="yHV-Jx-HAX"/>
                             </mask>
                         </variation>
                     </view>
@@ -239,6 +240,6 @@
         <image name="playHighPitch" width="100" height="100"/>
         <image name="playLowPitch" width="100" height="100"/>
         <image name="playSlow" width="100" height="100"/>
-        <image name="stop" width="50" height="50"/>
+        <image name="stopButton" width="50" height="50"/>
     </resources>
 </document>
