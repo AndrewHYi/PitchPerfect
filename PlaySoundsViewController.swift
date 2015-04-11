@@ -20,7 +20,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     var audioFile:AVAudioFile!
     var session:AVAudioSession!
     var receivedAudio:RecordedAudio!
-    var timer:NSTimer!
+    var timer:NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +102,7 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func setAudioPlayerAndSession() {
+        self.timer?.invalidate()
         audioPlayer.stop()
         audioPlayer.currentTime = 0
         audioEngine.stop()
