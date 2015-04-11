@@ -100,12 +100,12 @@ class PlaySoundsViewController: UIViewController, AVAudioPlayerDelegate {
     
     func playAudioWithVariablePitch(pitch: Float) {
         var audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
-        
         var changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
         
+        audioEngine.attachNode(audioPlayerNode)
         audioEngine.attachNode(changePitchEffect)
+        
         audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
         audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
         
